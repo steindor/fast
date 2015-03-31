@@ -1,0 +1,224 @@
+extends layout
+block content
+    .container
+        include subviews/modal
+        input.property-hash(type='hidden', value=property.property_hash)
+        input.bid-end(type='hidden', value=property.bid_end)
+        .row
+            .col-md-4
+                h3= property.address
+        .row
+            .col-md-7
+                .single-prop-main-img-window
+                    img(src='/images/eignir_myndir/'+property.image_url)
+            .col-md-5
+                .row
+                    .col-md-9
+                        .single-prop-control-panel-right
+                            h5 Upphafsboð 
+                            h3.first-offer= property.starting_bid.formatMoney(0)+ " krónur"
+                    .col-md-3
+                        a(tabindex='0', role='button', data-toggle='popover').see-all-offers(href='#') Sjá öll boð
+                .row
+                    .col-md-12
+                        btn.btn-make-offer.btn.btn-success.btn-block.btn-lg Bjóða í eign
+                .row
+                    .col-md-12
+                        label.text-muted Lágmarks tilboði náð?
+                        span.reserve-met= (property.reserve_met === 1 ? "Já" : "Nei")
+                        h6 Athugið að seljandi gæti samið um verðið jafnvel þó að lágmarksverði hafi ekki verið náð
+                .row
+                    .col-md-12
+                        h5 Tími eftir af uppboði
+                        h4.clock Hleð..
+                .row.get-more-info-container
+                    .row
+                        .col-md-12
+                            label Nafn
+                            input.form-control(type='text', placeholder='Nafn')
+                    .row.mtop-10
+                        .col-md-6
+                            label Símanúmer
+                            input.form-control(type='text', placeholder='Símanúmer')
+                        .col-md-6
+                            label Netfang
+                            input.form-control(type='text', placeholder='Netfang')
+        .row
+            .col-md-7
+                h3 Nánari upplýsingar
+                .row
+                    .col-md-3
+                        h5.text-primary Gerð
+                        h5= property.type
+                    .col-md-3
+                        h5.text-primary Fasteignamat
+                        h5.fasteignamat= property.fasteignamat.formatMoney(0)
+                    .col-md-3
+                        h5.text-primary Brunabótamat
+                        h5= property.brunabotamat.formatMoney(0)
+                    .col-md-3
+                        h5.text-primary Byggingarár
+                        h5= property.year_built
+                .row
+                    .col-md-3
+                        h5.text-primary Fjöldi baðherbergja
+                        h5= property.no_of_baths
+                    .col-md-3
+                        h5.text-primary Fjöldi herbergja
+                        h5= property.no_of_rooms
+                    .col-md-3
+                        h5.text-primary Áhvílandi
+                        h5= property.mortgage.formatMoney(0)
+                    .col-md-3
+                        h5.text-primary Fermetrar
+                        h5= property.sq_m + " fermetrar"
+                hr
+            .col-md-12
+                .col-md-6
+                    h4 Lýsing
+                    p.property-description= property.description
+                .col-md-6
+                    #single-property-map
+        hr
+        .row
+            .col-md-7.finance-container
+                h4 Kostnaður og fjármögnun
+                .finance-calculator-container
+                    form#finance-calculator(type='POST')
+                        .row
+                            .col-md-4
+                                label Kaupverð
+                                .input-group
+                                    input.form-control.bid.numerize(type='text', value=property.starting_bid)
+                                    span.input-group-addon kr.
+                            .col-md-4
+                                label Lánsfjárhæð
+                                .input-group
+                                    input.form-control.loan-amount.numerize(type='text', value=(0.7*property.starting_bid))
+                                    span.input-group-addon kr.
+                            .col-md-4
+                                .col-md-6
+                                    label Lánstími
+                                    .input-group.small
+                                        input.form-control.annuities(type='text', value='40')
+                                        span.input-group-addon.small-addon ár
+                                .col-md-6
+                                    label Vextir
+                                    .input-group.small
+                                        input.form-control.loan-points(type='text', value='3,65')
+                                        span.input-group-addon.small-addon %
+                        .row
+                            .col-md-3
+                                .btn-group.type-loan
+                                    label
+                                        input(type='radio', name='type_of_loan', checked='checked', value='verdtryggt') 
+                                        span Verðtryggt lán 
+                                .btn-group.type-loan
+                                    label
+                                        input(type='radio', name='type_of_loan', value='overdtryggd') 
+                                        span Óverðtryggt lán 
+                            .col-md-3
+                                .btn-group.type-loan
+                                    label
+                                        input(type='radio', name='annuity', checked='checked', value='jafnar_greidslur') 
+                                        span Jafnar greiðslur
+                                .btn-group.type-loan
+                                    label
+                                        input(type='radio', name='annuity', value='jafnar_afborganir') 
+                                        span Jafnar afborganir
+                        .row
+                            .col-md-12
+                                btn.btn.btn-warning.btn-calculate.btn-block Reikna
+                                //- .col-md-6
+                                    btn.btn.btn-info.btn-calculate Núllstilla
+                .row
+                    .finance-results
+                        //- finance results template inserts here after page load
+            .col-md-5
+                h4 Greiðslugeta
+                .greidslumat-container
+                    .row
+                        .col-md-6
+                            label Fjöldi fullorðinna í heimili
+                            //- .input-group
+                            //-     span.input-group-addon 
+                            //-         .glyphicon.glyphicon-star
+                            //-     input.form-control.bid.numerize(type='text', value=property.starting_bid)
+                            input.form-control(type='text')
+                        .col-md-6
+                            label Fjöldi barna í heimili
+                            input.form-control(type='text')
+                    .row
+                        .col-md-12.mtop-10
+                            label Útborguð laun á mánuði
+                            input.form-control.numerize(type='text')
+                    .row.mtop-10
+                        .col-md-6
+                            label Afborgun húsnæðislána á mánuði
+                            input.form-control.numerize(type='text')
+                        .col-md-6
+                            label Greiðslur annarra skuldbindinga, t.d. húsaleiga
+                            input.form-control.numerize(type='text')
+                    .row.mtop-10
+                        .col-md-6
+                            label Afborgun bílalána á mánuði
+                            input.form-control.numerize(type='text')
+                        .col-md-6
+                            label Afborgun námslána á mánuði
+                            input.form-control.numerize(type='text')
+                    .row.mtop-10
+                        .col-md-12
+                            label Fasteignamat núverandi húsnæðis
+                            input.form-control.numerize(type='text')
+                    .row.mtop-10
+                        .col-md-6
+                            label Fjöldi bíla á heimili
+                            input.form-control(type='text')
+                        .col-md-6
+                            btn.btn.btn-success.btn-calculate.btn-block Reikna
+
+        hr
+        .row
+            .col-md-12
+                h4 Umhverfi og þjónusta
+                .row
+                    .col-md-2
+                        h5.text-muted Heilsugæsla
+                        h5= property.clinic_name
+                    .col-md-2
+                        h5.text-muted Fjarlægð
+                        h5 3,5 km.
+                    .col-md-3
+                        h5.text-muted Fjöldi læknisígilda á hvern sjúkling
+                        h5= property.patient_per_doctor
+                    .col-md-2
+                        h5.text-muted Aðgengisstuðull
+                        h5= property.wait_score
+                .row
+                    .col-md-12
+                        h5.text-primary Barnagæsla
+                .row
+                    .col-md-2
+                        h5.text-muted Gerð barnagæslu
+                        h4 Daggæsla
+                        h4 Leikskóli
+                    .col-md-2
+                        h5.text-muted Fjarlægð
+                    .col-md-2
+                        h5.text-muted Biðtími
+                    .col-md-2
+                        h5.text-muted Aðgengisstuðull
+                .row
+                    .col-md-12
+                        h5.text-muted.text-primary Barna- og gagnfræðiskólar
+                .row
+                    .col-md-2
+                        h5.text-muted Fjarlægð
+                    .col-md-2
+                        h5.text-muted Læknir/sjúkling
+                    .col-md-2
+                        h5.text-muted Aðgengisstuðull
+        hr
+        .row
+            .col-md-12
+                h4 Aðrar eignir á sama svæði

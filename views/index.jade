@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    .container
+        #properties-list
+            for property in properties
+                .single-property
+                    label Uppboði lýkur #{moment(property.bid_end).fromNow()}
+                    .property-photo-container
+                        img.property-photo(alt='photo', src='/images/eignir_myndir/'+property.image_url)
+                    .property-info
+                        .row
+                            .col-md-6
+                                label Byrjunarboð
+                                b= property.starting_bid.formatMoney(0)
+                            .col-md-6
+                                label Heimilisfang
+                                p= property.address
+                        .row
+                            .col-md-6
+                                label Stærð
+                                p= property.sq_m + " fermetrar"
+                            .col-md-6
+                                label Fjöldi herbergja
+                                p= property.no_of_rooms
+                        .row
+                            .col-md-12
+                                
+                                a.btn.btn-block.btn-success(href="/properties/"+property.property_hash) Skoða nánar
+        #map

@@ -1,0 +1,33 @@
+.row.finance-results-container.container
+    .row
+        .col-md-3
+            h5 Eigið fé
+            h4= downPayment.formatMoney(0)
+        .col-md-3
+            h5 Veðhlutfall
+            h4= LTV+"%"
+    .row
+        .col-md-7
+            h5.text-danger Mánaðarleg gjöld
+            .row.center.paper-bill
+                .col-md-6
+                    h5 Afborgun af láni
+                    h5 Fasteignagjöld
+                    h5 Fráveitugjöld
+                    h5 Hiti
+                    h5 Rafmagn
+                    h5 Brunatrygging
+                .col-md-6
+                    h5.text-danger= firstPayment.formatMoney(0) +" kr."
+                    h5.text-danger= real_estate_tax.formatMoney(0) +" kr."
+                    h5.text-danger= fraveitugjold.formatMoney(0) +" kr."
+                    h5.text-danger= heating.formatMoney(0) +" kr."
+                    h5.text-danger= electricity.formatMoney(0) +" kr."
+                    h5.text-danger= insurance.formatMoney(0) +" kr."
+            .row.center
+                .col-md-2
+                    h4 Samtals
+                .col-md-4
+                    h4= total_cost.formatMoney(0)+" kr. á mánuði"
+                .col-md-6
+                    h6.text-muted Þessar tölur eru eingöngu til viðmiðunar

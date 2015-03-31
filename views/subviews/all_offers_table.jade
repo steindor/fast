@@ -1,0 +1,12 @@
+table.table
+    thead
+        tr
+            th Dagsetning boðs
+            th Upphæð
+            th Bjóðandi
+    tbody
+        for offer in offers
+            tr
+                td= moment(offer.offer_made_datetime).format("LL")
+                td= offer.offer_value.formatMoney(0)
+                td= offer.made_by
