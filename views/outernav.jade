@@ -1,0 +1,17 @@
+.container
+    .row
+        .nav-container
+            -var links = [{ text: "Logo", href: "/"}, { text: "Hvernig virkar þetta?", href: "#"}, { text: "Kaupandi", href: "#"}, { text: "Seljandi", href: "#" }]
+            .col-md-6
+                ul.outernav-ul
+                    for link in links
+                        li
+                            a(href=link.href)= link.text
+            .col-md-2.col-md-offset-2
+                .col-md-12
+                    a(href='/properties/register/register_new') Nýskrá eign
+            .col-md-2
+                .col-md-6   
+                    btn.btn.btn-info Nýskrá
+                .col-md-6
+                    btn.btn.btn-success Innskrá

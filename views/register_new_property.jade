@@ -1,0 +1,17 @@
+extends layout
+block content
+    .container
+        include subviews/modal
+        .row
+            .col-md-12
+                h3 Skrá nýja eign
+        .row
+            .col-md-12
+                form#fetch-property-data
+                    label Hvert er heimilisfangið?
+                    .input-group
+                        input.form-control.property-address(type='text')
+                        span.input-group-btn
+                            btn.btn.btn-primary.fetch-property-data-btn Sækja upplýsingar
+        .row
+            .col-md-12#results-container.mtop-20

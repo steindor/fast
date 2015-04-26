@@ -128,7 +128,7 @@ block content
                                         span Jafnar afborganir
                         .row
                             .col-md-12
-                                btn.btn.btn-warning.btn-calculate.btn-block Reikna
+                                btn.btn.btn-warning.btn-calculate-loan.btn-calculate.btn-block Reikna
                                 //- .col-md-6
                                     btn.btn.btn-info.btn-calculate Núllstilla
                 .row
@@ -144,39 +144,42 @@ block content
                             //-     span.input-group-addon 
                             //-         .glyphicon.glyphicon-star
                             //-     input.form-control.bid.numerize(type='text', value=property.starting_bid)
-                            input.form-control(type='text')
+                            input.form-control(type='text', value='2')
                         .col-md-6
                             label Fjöldi barna í heimili
-                            input.form-control(type='text')
+                            input.form-control(type='text', value='2')
                     .row
                         .col-md-12.mtop-10
                             label Útborguð laun á mánuði
-                            input.form-control.numerize(type='text')
+                            input.form-control.numerize(type='text', value='600000')
                     .row.mtop-10
                         .col-md-6
                             label Afborgun húsnæðislána á mánuði
-                            input.form-control.numerize(type='text')
+                            input.form-control.numerize(type='text', value='100000')
                         .col-md-6
                             label Greiðslur annarra skuldbindinga, t.d. húsaleiga
-                            input.form-control.numerize(type='text')
+                            input.form-control.numerize(type='text', value='50000')
                     .row.mtop-10
                         .col-md-6
                             label Afborgun bílalána á mánuði
-                            input.form-control.numerize(type='text')
+                            input.form-control.numerize(type='text', value='25000')
                         .col-md-6
                             label Afborgun námslána á mánuði
-                            input.form-control.numerize(type='text')
+                            input.form-control.numerize(type='text', value='20000')
                     .row.mtop-10
                         .col-md-12
                             label Fasteignamat núverandi húsnæðis
-                            input.form-control.numerize(type='text')
+                            input.form-control.numerize(type='text', value='25000000')
                     .row.mtop-10
                         .col-md-6
                             label Fjöldi bíla á heimili
-                            input.form-control(type='text')
+                            input.form-control(type='text', value='1')
                         .col-md-6
-                            btn.btn.btn-success.btn-calculate.btn-block Reikna
-
+                            btn.btn.btn-success.btn-calculate-payment-capacity.btn-calculate.btn-block Reikna
+                    .row.mtop-10
+                        .col-md-12.payment-capacity-html
+                            .loading-spinner.spinner-payment-capacity
+                                span.glyphicon.glyphicon-refresh.spinning.glyphicon-large
         hr
         .row
             .col-md-12
@@ -194,10 +197,10 @@ block content
                     .col-md-2
                         h5.text-muted Aðgengisstuðull
                         h5= property.wait_score
-                .row
+                //- .row
                     .col-md-12
                         h5.text-primary Barnagæsla
-                .row
+                //- .row
                     .col-md-2
                         h5.text-muted Gerð barnagæslu
                         h4 Daggæsla
@@ -208,10 +211,10 @@ block content
                         h5.text-muted Biðtími
                     .col-md-2
                         h5.text-muted Aðgengisstuðull
-                .row
+                //- .row
                     .col-md-12
                         h5.text-muted.text-primary Barna- og gagnfræðiskólar
-                .row
+                //- .row
                     .col-md-2
                         h5.text-muted Fjarlægð
                     .col-md-2

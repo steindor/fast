@@ -1,0 +1,25 @@
+if typeof properties[0] !== "undefined"
+    table.table.table-condensed
+        thead
+            tr
+                th Fastanúmer
+                th Merking
+                th Byggingarár
+                th Stærð
+                th Fasteignamat
+                th Brunabótamat
+                th Lóðarmat
+        tbody
+        for property in properties
+            tr
+                td= property.fastanr
+                td= property.numer
+                td= property.bygg_ar
+                td= property.birt_staerd
+                td= property.fasteignamat
+                td= property.brunabotamat
+                td= property.lodarmat
+                td
+                    a(href='/properties/register_details/'+JSON.stringify(property)).btn.btn-primary Velja
+else
+    h4 Engin eign fannst

@@ -1,0 +1,43 @@
+extends layout
+block content
+    .container
+        include subviews/modal
+        .row
+            .col-md-12
+                h2 Skrá nýja eign
+        .row
+            .col-md-12
+                h3= property.address
+        .row.mtop-10
+            .col-md-4
+                label.text-primary Fastanúmer
+                h5= property.fastanr
+            .col-md-4
+                label.text-primary Númer
+                h5= property.numer
+            .col-md-4
+                label.text-primary Birt stærð
+                h5= property.birt_staerd
+        .row
+            .col-md-4
+                label.text-primary Fasteignamat
+                h5= property.fasteignamat
+            .col-md-4
+                label.text-primary Brunabótamat
+                h5= property.brunabotamat
+            .col-md-4
+                label.text-primary Lóðarmat
+                h5= property.lodarmat
+        .row
+            .col-md-12
+                h3 Verðmat eignarinnar þinnar
+        .row
+            .col-md-4
+                label.text-primary Seldar eignir í grenndinni síðustu 3 mánuði
+                h5 287
+            .col-md-4
+                label.text-primary Meðalverð á fermetra
+                h5 432.000 krónur
+            .col-md-4
+                label.text-primary Lóðarmat
+                h5= property.lodarmat

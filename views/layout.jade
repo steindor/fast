@@ -1,10 +1,11 @@
 doctype 5
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/flipclock.css')
-    link(rel='stylesheet', href='/stylesheets/outerstyle.css')
+    head
+        title= title
+        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/flipclock.css')
+        link(rel='stylesheet', href='/stylesheets/outerstyle.css')
    body
-    block content
-  include outerscripts
+      include outernav
+      block content
+   include outerscripts

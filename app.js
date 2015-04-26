@@ -54,7 +54,10 @@ utils.calculateLoan = function(value_of_bid, loanAmount, points, no_of_annuities
 var express = require('express')
   , routes = require('./routes')
   , mysql = require('mysql')
+  , cheerio = require('cheerio')
+  , request = require('request')
   , moment = require('moment')
+  , querystring = require('querystring')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
@@ -131,6 +134,96 @@ app.get('/properties/show_all_offers/:property_hash', function(req, res){
             res.render("subviews/all_offers_table", { offers: rows })
         };
     });
+});
+
+app.get('/properties/register/register_new', function(req, res){
+    
+    res.render("register_new_property");
+});
+
+app.get('/properties/register_details/:property_data', function(req, res){
+    
+    var propertyData = JSON.parse(req.params.property_data);
+
+    res.render("register_property_details", { property: propertyData })
+});
+
+app.post('/properties/register/fetch_property_data', function(req, res){
+
+    // console.log()
+
+    var url = "http://www.skra.is/default.aspx?pageid=e4db60a3-50f1-4e6d-88f0-37ad9dfb371f&selector=streetname&streetname="+querystring.escape(req.body.address)+"&submitbutton=Leita";
+
+    request(url, function(error, response, html){
+
+        // First we'll check to make sure no errors occurred when making the request
+        if (error) throw error
+        else {
+            // Next, we'll utilize the cheerio library on the returned html which will essentially give us jQuery functionality
+
+            var $ = cheerio.load(html);
+
+            var tableData = {}
+            , fastaNr = [];
+
+            $('.resulttable.large').find('tbody tr').each(function(i){
+
+                $this = $(this);
+
+                tableData[i] = [];
+
+                $this.find("td").each(function(){
+                    var html = $(this).text();
+                    if(html.length < 20){
+                        tableData[i].push($(this).text());
+                    }
+                });
+            });
+
+            var data = {};
+
+            console.log(tableData)
+
+            for(var key in tableData){
+
+                /*
+                    fjarlaegja duplicates, bilskurar og aukabyggingar fa sama fastanumer
+                 */ 
+
+                if(fastaNr.indexOf(tableData[key][0]) === -1){
+
+                    data[key] = {
+                        fastanr: tableData[key][0],
+                        numer: tableData[key][1],
+                        bygg_ar: tableData[key][2],
+                        birt_staerd: tableData[key][3],
+                        fasteignamat: tableData[key][4],
+                        brunabotamat: tableData[key][6],
+                        lodarmat: tableData[key][5],
+                        address: req.body.address
+                    }
+                    
+                    fastaNr.push(tableData[key][0])
+                }
+
+            }
+
+            console.log(data)
+
+            res.render("subviews/choose_property", {
+                properties: data
+            })
+        }
+    })
+
+
+});
+
+app.post("/properties/calculate_monthly_payment_capacity", function(req, res){
+
+    // var paymentCapacity = utils.calculateMonthlyPaymentCapacity(req.body)
+
+    res.render("subviews/payment_capacity")
 });
 
 
